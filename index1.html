@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- <link rel="stylesheet" href="style.css" /> -->
+        <title>Challenge 2</title>
+
+        <style>
+            * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: sans-serif;
+    background-color: #009578;
+    color: white;
+}
+            .container{overflow: hidden;
+    width: fit-content;
+    margin: auto;
+  
+    gap: 20px;
+
+
+
+}
+.InProgress{margin-top: 30%;}
+  .Thetable{
+				border-radius: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 0.5rem 2rem 1rem;
+    width: 20rem;
+    min-width: 20rem;
+    position: relative;
+}
+            
+            tr{transition:all .25s ease-in-out;
+          
+border-radius: 5px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+cursor: pointer;
+}
+            tr:hover{background-color:#e2d7e5;cursor: pointer}
+            
+        </style>
+        
+    </head>
+    <body>
+        
+        <div class="container">
+            <div class="main">
+            <h3 class="NotStarted">Not Started</h3>
+
+            <div class="Thetable" >
+                <table id="table"  draggable="true">
+                    
+                   
+                </table>
+                </div>
+                 
+                    <button onclick="editSelected();">   
+                         <ion-icon name="create-outline" class="edit" onclick="enableEdit"></ion-icon>
+                        </button>
+                  <button onclick="removeSelected();"> 
+                           <ion-icon name="close-circle-outline" class="delete" onclick="deleteTask"></ion-icon> 
+                        </button>
+
+            </div>
+			<br>
+            <input type="text" name="EnteredData" id="EnteredData">
+
+            <button onclick="add();">+ Add</button>
+
+
+
+
+
+    <!-- -------------------section2-----------
+
+
+       <div class="main">
+        <h3 class="InProgress">In Progress</h3> 
+
+        <div class="Thetable" >
+            <table id="table"  draggable="true">
+                
+               
+            </table>
+            </div>
+             
+                <button onclick="editSelected();">   
+                     <ion-icon name="create-outline" class="edit" onclick="enableEdit"></ion-icon>
+                    </button>
+              <button onclick="removeSelected();"> 
+                       <ion-icon name="close-circle-outline" class="delete" onclick="deleteTask"></ion-icon> 
+                    </button>
+
+        </div>
+        <br>
+        <input type="text" name="EnteredData" id="EnteredData">
+
+        <button onclick="add();">+ Add</button> -->
+
+
+
+                    
+
+
+
+
+        <!-- ---------------------section3-------------- -->
+            <!-- <h3 class="Completed">Completed</h3>
+
+            <div class="Thetable ">
+                <table id="table"  >
+                    <tr draggable="true"></tr>
+                   <div class="div-task" draggable="true" id="s"> -->
+                        <!-- <input type="text" value="s" disabled=""> -->
+                    <!-- </div>	 -->
+                
+                   
+                <!-- </table>
+                  <div class="tab tab-2"> -->
+                    
+                    <!-- <input type="text" name="EnteredData3" id="EnteredData3"> -->
+                    <!-- Last Name :<input type="text" name="lname" id="lname">
+                    Age :<input type="number" name="age" id="age">  -->
+                    
+                    <!-- <button onclick="editSelected();">   
+                         <ion-icon name="create-outline" class="edit" onclick="enableEdit"></ion-icon>
+                        </button>
+                  <button onclick="removeSelected();"> 
+                           <ion-icon name="close-circle-outline" class="delete" onclick="deleteTask"></ion-icon> 
+                        </button> --> 
+                <!-- </div> -->
+
+            <!-- </div>
+			<br>
+            <button onclick="add();">+ Add</button>
+
+
+
+</div> -->
+
+
+        <script>
+// const colsContainer = document.querySelector(".container");
+
+
+            var Index,
+            
+                table = document.getElementById("table");
+            var tr=document.getElementsByTagName("tr");
+            var dragitem=null;
+            for(var j of tr){
+            j.addEventListener('dragstart',dragStart);
+            j.addEventListener('dragend',dragEnd);}
+
+            function dragStart(){
+                dragitem=this;
+                setTimeout(() =>this.style.display="none",0); 
+            function dragEnd(){
+                setTimeout(() =>this.style.display="none",0); 
+                dragitem=none;
+
+              
+            }}
+
+            // check the empty input
+            function checkEmptyInput()
+            {
+                var isEmpty = false,
+                EnteredData = document.getElementById("EnteredData").value;
+                // EnteredData2 = document.getElementById("EnteredData2").value,
+                // EnteredData3 = document.getElementById("EnteredData3").value;
+
+            
+                if(EnteredData === ""){
+                    alert("can't be Empty");
+                    isEmpty = true;
+                }
+                
+                return isEmpty;
+            }
+    
+            
+            function add()
+            {
+               
+                if(!checkEmptyInput()){
+                var NewCell = table.insertRow(table.length),
+                    cell = NewCell.insertCell(0),
+                   
+                    EnteredData = document.getElementById("EnteredData").value;
+                    // EnteredData2 = document.getElementById("EnteredData2").value;
+
+                
+            
+                cell.innerHTML = EnteredData;
+                
+                selectedInput();
+            }
+            }
+            
+         
+            function selectedInput()
+            {
+                
+                for(var i = 0; i < table.rows.length; i++)
+                {
+                    table.rows[i].onclick = function()
+                    {
+                      // get the seected row index
+                      Index = this.rowIndex;
+                      document.getElementById("EnteredData").value = this.cells[0].innerHTML;
+                    
+                    };
+                }
+            }
+            selectedInput();
+            
+            function editSelected()
+            {
+                var EnteredData = document.getElementById("EnteredData").value;
+                    
+               if(!checkEmptyInput()){
+                table.rows[Index].cells[0].innerHTML = EnteredData;
+              }
+            }
+            
+            function removeSelected()
+            {
+                table.deleteRow(Index);
+                document.getElementById("EnteredData").value = "";
+            }
+
+            // const drag=document.querySelector("tr");
+            // new Sorttable(drag,{
+            //     Animation:350
+            // }
+            // );
+    //         function createTask(taskName, columnId) {
+    // const task = document.createElement("div");
+  
+    // task.setAttribute("draggable", true);
+        </script>
+
+        <script
+		type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+	></script>
+	
+    </body>
+</html>
